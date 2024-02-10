@@ -15,7 +15,8 @@ var config = {
 //estabelecendo que as configurações serão usadas no novo jogo phaser
 var game = new Phaser.Game(config);
 
-var peixinho; //criando a variável que armanezará o peixe
+var peixinho; //criando a variável que armazenará o peixe
+var surfista; //criando a variável que armazenará o nono elemento: surfista
 
 function preload() {
     this.load.image('mar', 'assets/bg_azul-escuro.png'); //pre-carregando o fundo
@@ -28,7 +29,7 @@ function preload() {
 
 function create() {
     this.add.image(400, 300, 'mar'); //adicionando e posicionando o fundo
-    this.add.image(200, 200, 'surfista').setScale(0.7); //adicionando o novo elemento: surfista
+    surfista = this.add.image(200, 200, 'surfista').setScale(0.7); //adicionando o surfista a variável e arrumando o tamanho
     this.add.image(400, 450, 'areia').setScale() //adicionando o novo elemento: areia
     this.add.image(400, 525, 'logo').setScale(0.5); //adicionando, ajustando a escala e posicionando a logo
     peixinho = this.add.image(400, 300, 'peixe'); //adicionando o peixe a variável e posicionando
@@ -40,5 +41,9 @@ function update() {
     peixinho.x = this.input.x;
     peixinho.y = this.input.y;
 
+    // delinea e verifica se o mouse está sobre o surfista
+    if (Phaser.Geom.Rectangle.ContainsPoint(surfista.getBounds(), this.input.activePointer.position)) {
+        // move o surfista para o lado direito
+        surfista.x += 5;
+    }
 }
-
